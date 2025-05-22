@@ -1,0 +1,86 @@
+- Socrates
+- Immanuel Kant
+- Carl Friedrich Gauss
+- Einstein
+- Georg Cantor
+- Salvador Dali
+- Edward Hopper
+- Charles Darwin
+- Alan Turing
+- Stephen Hawking
+- Roger Penrose
+- Plato
+- Euclid
+- Aristotle
+- Alexander the Great
+- Alcibiades
+- Achilles
+- Aristophanes
+- Herodotus
+- Jesus
+- Zeno
+- Seneca
+- T.S. Eliot
+- Joseph Fourier
+- David Hilbert
+- Alfred Tarski
+- Charles Dodgson / Lewis Carroll
+- Mark Twain
+- Fyodor Dostoevsky
+- Leo Tolstoy
+- Alexander Pushkin
+- Goethe
+- Erwin Schrödinger
+- Leonhard Euler
+- Thales
+- Homer
+- Confucius
+- Siddhartha Gautama
+- Diogenes
+- Guy Fawkes
+- Caravaggio
+- Abraham Lincoln
+- Marcus Aurelius
+- Dante Alighieri
+- Descartes
+- Mahatma Gandhi
+- John Conway
+- Carl Jung
+- Carl Sagan
+- Francis Bacon
+- Galileo
+- George Orwell
+- Niklas Luhmann
+- Newton
+- Nietzsche
+- Richard Feynman
+- Nikola Tesla
+- Shakespeare
+- Spinoza
+- Steve Jobs
+- Voltaire
+- Alexander Shulgin
+- Da Vinci
+- Hermann Ebbinghaus
+- Montaigne
+- Mortimer J. Adler
+- Michael Jackson
+- Frank Sinatra
+- Genghis Khan
+- Jacques Louis David
+- Eugène Delacroix
+- Geoffrey Chaucer
+- Lavoisier
+- Faust
+- Sigmund Freud
+- Muhammad Ali
+- Adam Smith
+- Beethoven
+- Sophocles
+
+# alive
+- Donald Knuth
+- Elon Musk
+- Eminem
+- Kanye West
+- Bill Gates

@@ -1,0 +1,9 @@
+- brief history of time hawking
+- deep work cal newport
+- how to win friends and influence people
+- ikigai
+- plato's dialogues
+- sapiens, a brief history of humankind
+- shakespeare's first folio
+- thinking fast and slow, kahneman
+- why we sleep, matthew walker

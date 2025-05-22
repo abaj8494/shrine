@@ -1,5 +1,13 @@
 import adapter from '@sveltejs/adapter-static';
 
-const config = { kit: { adapter: adapter() } };
+const dev = process.env.NODE_ENV === 'development';
 
-export default config;
+export default {
+  kit: {
+    adapter: adapter(),
+    paths: {
+      base: dev ? '' : '/shrine'
+    }
+  }
+};
+
