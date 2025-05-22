@@ -1,86 +1,87 @@
-- Socrates
-- Immanuel Kant
-- Carl Friedrich Gauss
-- Einstein
-- Georg Cantor
-- Salvador Dali
-- Edward Hopper
-- Charles Darwin
-- Alan Turing
-- Stephen Hawking
-- Roger Penrose
-- Plato
-- Euclid
-- Aristotle
-- Alexander the Great
-- Alcibiades
-- Achilles
-- Aristophanes
-- Herodotus
-- Jesus
-- Zeno
-- Seneca
-- T.S. Eliot
-- Joseph Fourier
-- David Hilbert
-- Alfred Tarski
-- Charles Dodgson / Lewis Carroll
-- Mark Twain
-- Fyodor Dostoevsky
-- Leo Tolstoy
-- Alexander Pushkin
-- Goethe
-- Erwin Schrödinger
-- Leonhard Euler
-- Thales
-- Homer
-- Confucius
-- Siddhartha Gautama
-- Diogenes
-- Guy Fawkes
-- Caravaggio
-- Abraham Lincoln
-- Marcus Aurelius
-- Dante Alighieri
-- Descartes
-- Mahatma Gandhi
-- John Conway
-- Carl Jung
-- Carl Sagan
-- Francis Bacon
-- Galileo
-- George Orwell
-- Niklas Luhmann
-- Newton
-- Nietzsche
-- Richard Feynman
-- Nikola Tesla
-- Shakespeare
-- Spinoza
-- Steve Jobs
-- Voltaire
-- Alexander Shulgin
-- Da Vinci
-- Hermann Ebbinghaus
-- Montaigne
-- Mortimer J. Adler
-- Michael Jackson
-- Frank Sinatra
-- Genghis Khan
-- Jacques Louis David
-- Eugène Delacroix
-- Geoffrey Chaucer
-- Lavoisier
-- Faust
-- Sigmund Freud
-- Muhammad Ali
-- Adam Smith
-- Beethoven
-- Sophocles
+- [X] Socrates
+- [X] Immanuel Kant
+- [X] Carl Friedrich Gauss
+- [X] Einstein
+- [X] Georg Cantor
+- [X] Salvador Dali
+- [X] Edward Hopper
+- [X] Charles Darwin
+- [X] Alan Turing
+- [X] Stephen Hawking
+- [X] Roger Penrose
+- [X] Plato
+- [X] Euclid
+- [X] Aristotle
+- [X] Alexander the Great
+- [X] Alcibiades
+- [X] Achilles
+- [X] Aristophanes
+- [X] Herodotus
+- [X] Jesus
+- [X] Zeno
+- [X] Seneca
+- [X] T.S. Eliot
+- [X] Joseph Fourier
+- [X] David Hilbert
+- [X] Alfred Tarski
+- [X] Charles Dodgson / Lewis Carroll
+- [X] Mark Twain
+- [X] Fyodor Dostoevsky
+- [X] Leo Tolstoy
+- [X] Alexander Pushkin
+- [X] Goethe
+- [X] Erwin Schrödinger
+- [X] Leonhard Euler
+- [X] Thales
+- [X] Homer
+- [X] Confucius
+- [X] Siddhartha Gautama
+- [X] Diogenes
+- [X] Guy Fawkes
+- [X] Caravaggio
+- [X] Abraham Lincoln
+- [X] Marcus Aurelius
+- [X] Dante Alighieri
+- [X] Descartes
+- [X] Mahatma Gandhi
+- [X] John Conway
+- [X] Carl Jung
+- [X] Carl Sagan
+- [X] Francis Bacon
+- [X] Galileo
+- [X] George Orwell
+- [X] Niklas Luhmann
+- [X] Newton
+- [X] Nietzsche
+- [X] Richard Feynman
+- [X] Nikola Tesla
+- [X] Shakespeare
+- [X] Spinoza
+- [X] Steve Jobs
+- [X] Voltaire
+- [X] Alexander Shulgin
+- [X] Da Vinci
+- [X] Hermann Ebbinghaus
+- [X] Montaigne
+- [X] Mortimer J. Adler
+- [X] Michael Jackson
+- [X] Frank Sinatra
+- [X] Genghis Khan
+- [X] Jacques Louis David
+- [X] Eugène Delacroix
+- [X] Geoffrey Chaucer
+- [X] Lavoisier
+- [X] Faust
+- [X] Sigmund Freud
+- [X] Muhammad Ali
+- [X] Adam Smith
+- [X] Beethoven
+- [X] Sophocles
 
-# alive
-- Donald Knuth
-- Elon Musk
-- Eminem
-- Kanye West
-- Bill Gates
+
+# alive; do NOT include:
+- [X] Donald Knuth
+- [X] Elon Musk
+- [X] Eminem
+- [X] Kanye West
+- [X] Bill Gates

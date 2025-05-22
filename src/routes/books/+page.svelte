@@ -8,5 +8,5 @@
 <Timeline items={books} />
 
 <nav class="mt-8">
-  <a class="btn" href="/people">👥 See people timeline</a>
+  <a class="btn" href="/people">👥 people timeline</a>
 </nav>
