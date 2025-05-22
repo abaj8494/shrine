@@ -119,8 +119,60 @@ def main(json_path="people.json"):
     print(f"\nDone: {saved} downloaded, {skipped} skipped, {err} errors.")
 
 
+
+# --- BEGIN MANUAL PATCH -------------------------------------------------------
+# Adds: Thales of Miletus, Carl Jung
+
+from pathlib import Path
+
+# 1) Map the JSON `name` → an *unambiguous* Wikipedia title or → a Wikidata Q-id.
+OVERRIDE_LOOKUP = {
+    # earlier fixes
+    "Zeno":        "Zeno of Elea",            # page title ≈ Q132157
+    "Seneca":      "Lucius Annaeus Seneca",   # ≈ Q2054
+    "Newton":      "Isaac Newton",            # ≈ Q935
+    "Charles Dodgson / Lewis Carroll": "Lewis Carroll",  # ≈ Q185764
+    # NEW
+    "Thales":      "Thales of Miletus",       # ≈ Q9334
+    "Carl Jung":   "Carl Jung",               # ≈ Q135613
+}
+
+# 2) Local filenames that match your JSON `image` paths
+LOCAL_PATH = {
+    **{
+        "Zeno":      Path("images/people/zeno.jpg"),
+        "Seneca":    Path("images/people/seneca.jpg"),
+        "Newton":    Path("images/people/newton.jpg"),
+        "Charles Dodgson / Lewis Carroll": Path("images/people/carroll.jpg"),
+    },
+    # NEW
+    "Thales":      Path("images/people/thales.jpg"),
+    "Carl Jung":   Path("images/people/jung.jpg"),
+}
+
+for raw_name, override in OVERRIDE_LOOKUP.items():
+    try:
+        # override may be a page title *or* a ready Q-id
+        if override.startswith("Q"):
+            qid = override
+        else:
+            qid = wikipedia_to_qid(override)
+        if not qid:
+            print(f"⚠️  {raw_name}: could not resolve Q-id");  continue
+
+        filename = qid_to_image_filename(qid)
+        if not filename:
+            print(f"⚠️  {raw_name}: no P18 image on Wikidata");  continue
+
+        saved = download_commons_file(filename, LOCAL_PATH[raw_name])
+        verb  = "Downloaded" if saved else "Exists"
+        print(f"✅ {verb} {raw_name} → {LOCAL_PATH[raw_name]}")
+    except Exception as e:
+        print(f"❌ {raw_name}: {e}")
+# --- END MANUAL PATCH ---------------------------------------------------------
+
 if __name__ == "__main__":
     if not pathlib.Path("people.json").exists():
         sys.exit("people.json not found in current directory.")
-    main("people.json")
+    #main("people.json")
 
