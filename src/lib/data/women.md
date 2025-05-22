@@ -1,0 +1,15 @@
+- Marie Curie
+- Mother Teresa
+- Jane Austen
+- Charlotte Bronte
+- Ada Lovelace
+- Sylvia Plath
+- Rosemary Dobson
+- Malala Yousafzai
+- Rosa Parks
+- Anne Frank
+- Princess Diana
+- Frida Kahlo
+- Cleopatra
+- Madonna
+- Oprah Winfrey

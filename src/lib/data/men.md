@@ -24,24 +24,24 @@
 - Joseph Fourier
 - David Hilbert
 - Alfred Tarski
-- Charles Dodgson / Lewis Caroll
+- Charles Dodgson / Lewis Carroll
 - Mark Twain
-- Dostoevsky
-- Tolstoy
-- Pushkin
+- Fyodor Dostoevsky
+- Leo Tolstoy
+- Alexander Pushkin
 - Goethe
-- Schrodinger
-- Leonard Euler
+- Erwin Schrödinger
+- Leonhard Euler
 - Thales
 - Homer
 - Confucius
-- Siddhartha Guatama
+- Siddhartha Gautama
 - Diogenes
 - Guy Fawkes
-- Carvaggio
+- Caravaggio
 - Abraham Lincoln
-- Aurelius
-- Dante Aligheiri
+- Marcus Aurelius
+- Dante Alighieri
 - Descartes
 - Mahatma Gandhi
 - John Conway
@@ -61,14 +61,14 @@
 - Voltaire
 - Alexander Shulgin
 - Da Vinci
-- Ebbinghaus
+- Hermann Ebbinghaus
 - Montaigne
 - Mortimer J. Adler
 - Michael Jackson
 - Frank Sinatra
 - Genghis Khan
 - Jacques Louis David
-- Eugene Delacroix
+- Eugène Delacroix
 - Geoffrey Chaucer
 - Lavoisier
 - Faust
@@ -76,7 +76,7 @@
 - Muhammad Ali
 - Adam Smith
 - Beethoven
-- sophocles
+- Sophocles
 
 # alive
 - Donald Knuth
