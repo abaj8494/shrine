@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { resolveBasePath } from '$lib/utils/paths';
+  
   export let items: {
     id: string;
     name: string;
@@ -37,7 +39,7 @@
 <div class="timeline">
   {#each sorted as p}
     <article class="card">
-      <img src={p.image} alt={"Portrait of " + (p.name || p.title)} loading="lazy" />
+      <img src={resolveBasePath(p.image)} alt={"Portrait of " + (p.name || p.title)} loading="lazy" />
       <div class="p-4">
         <h3 class="text-lg font-semibold">{p.name || p.title}</h3>
         <p class="text-sm opacity-70">
