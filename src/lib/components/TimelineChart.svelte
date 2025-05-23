@@ -4,12 +4,14 @@
   
   export let items: {
     id: string;
-    name: string;
-    born?: number;
-    died?: number;
-    published?: number;   // for books
+    name?: string;         // for people
+    title?: string;        // for books
+    born?: number;         // for people
+    died?: number;         // for people
+    published?: number;    // for books
     image: string;
-    gender: number;
+    gender?: number;       // for people
+    author?: string;       // for books
   }[];
 
   // Constants for visualization
@@ -22,6 +24,12 @@
   const DATE_OFFSET = 36; // Distance between bar and date (was not explicitly defined)
   const YEAR_PIXEL_RATIO = 1.2; // pixels per year - significantly increased for more horizontal space
   const MAX_BARS_PER_SIDE = 25; // Increased from 20 to allow more rows
+  const DOT_RADIUS = 6; // New constant for book dots
+  
+  // Helper to determine if an item is a book or a person
+  function isBook(item) {
+    return item.title !== undefined && item.published !== undefined;
+  }
   
   // Calculate the earliest and latest years in the dataset
   $: earliestYear = Math.floor(Math.min(...items.map(p => p.born || p.published || 0)) / 100) * 100 - 100;
@@ -33,7 +41,7 @@
   // Calculate total height with additional padding
   $: height = TIMELINE_Y + (PADDING * 3) + (MAX_BARS_PER_SIDE * 2) * (BAR_HEIGHT + BAR_GAP);
   
-  // Sort by birth year
+  // Sort by birth/publication year
   $: sorted = [...items].sort((a, b) => 
     (a.born || a.published || 0) - (b.born || b.published || 0)
   );
@@ -97,7 +105,12 @@
             const pStart = p.born || p.published || 0;
             const pEnd = p.died || new Date().getFullYear();
             
-            // Check for overlap with increased buffer for extra spacing
+            // For books (dots), we only check if they're close to each other in time
+            if (isBook(person) && isBook(p)) {
+              return Math.abs(personStart - pStart) < 30; // Dots should have at least 30 years distance
+            }
+            
+            // For people (bars), or book-person combinations
             return (personStart <= pEnd + 70) && (personEnd >= pStart - 70); // Increased buffer (was 50)
           });
           
@@ -171,7 +184,7 @@
     stroke-width: 3;
   }
   
-  .person-name {
+  .person-name, .book-title {
     fill: #fff;
     font-size: 11px;
     dominant-baseline: middle;
@@ -179,8 +192,12 @@
     cursor: pointer;
   }
   
-  .person-name:hover {
+  .person-name:hover, .book-title:hover {
     fill: #FA6742;
+  }
+  
+  .book-title {
+    fill: #58B5F3;
   }
   
   .person-bar {
@@ -195,6 +212,19 @@
   
   .person-bar:hover {
     opacity: 1;
+  }
+  
+  .book-dot {
+    fill: #58B5F3;
+    opacity: 0.9;
+    transition: opacity 0.2s, r 0.2s;
+    pointer-events: all;
+    cursor: pointer;
+  }
+  
+  .book-dot:hover {
+    opacity: 1;
+    r: 8;
   }
   
   .date-label {
@@ -271,60 +301,115 @@
       />
       
       <!-- Person timelines -->
-      {#each sorted as person, index}
+      {#each sorted as item, index}
         <!-- Calculate positions -->
-        {@const birthYear = person.born || person.published || 0}
-        {@const deathYear = person.died || new Date().getFullYear()}
-        {@const xStart = yearToX(birthYear)}
-        {@const xEnd = yearToX(deathYear)}
-        {@const barWidth = Math.max(xEnd - xStart, 5)} <!-- Ensure minimum visibility -->
+        {@const yearValue = item.born || item.published || 0}
+        {@const isItemBook = isBook(item)}
+        {@const displayName = isItemBook ? item.title : item.name}
         
-        <!-- Calculate Y position based on placement and row -->
-        {@const isTop = person.placement === 'top'}
-        {@const rowOffset = (person.row - 1) * (BAR_HEIGHT + BAR_GAP)}
-        {@const yPos = isTop 
-          ? TIMELINE_Y - BAR_OFFSET - rowOffset - BAR_HEIGHT
-          : TIMELINE_Y + BAR_OFFSET + rowOffset}
-        
-        <!-- Person bar group with pointer events -->
-        <g 
-          on:click={(e) => {
-            selectedPerson = person;
-            tooltipX = e.clientX;
-            tooltipY = e.clientY;
-            e.stopPropagation();
-          }}
-        >
-          <!-- Person name -->
-          <text 
-            x={xStart + barWidth/2} 
-            y={yPos + (isTop ? -NAME_OFFSET : BAR_HEIGHT + NAME_OFFSET)} 
-            text-anchor="middle" 
-            class="person-name"
+        {#if isItemBook}
+          <!-- Book representation (blue dot) -->
+          {@const xPos = yearToX(yearValue)}
+          
+          <!-- Calculate Y position based on placement and row -->
+          {@const isTop = item.placement === 'top'}
+          {@const rowOffset = (item.row - 1) * (BAR_HEIGHT + BAR_GAP)}
+          {@const yPos = isTop 
+            ? TIMELINE_Y - BAR_OFFSET - rowOffset - BAR_HEIGHT/2
+            : TIMELINE_Y + BAR_OFFSET + rowOffset + BAR_HEIGHT/2}
+          
+          <!-- Book dot group with pointer events -->
+          <g 
+            on:click={(e) => {
+              selectedPerson = item;
+              tooltipX = e.clientX;
+              tooltipY = e.clientY;
+              e.stopPropagation();
+            }}
           >
-            {person.name}
-          </text>
+            <!-- Book title -->
+            <text 
+              x={xPos} 
+              y={yPos + (isTop ? -NAME_OFFSET - 6 : NAME_OFFSET + 6)} 
+              text-anchor="middle" 
+              class="book-title"
+            >
+              {displayName}
+            </text>
+            
+            <!-- Book dot -->
+            <circle 
+              cx={xPos} 
+              cy={yPos} 
+              r={DOT_RADIUS} 
+              class="book-dot" 
+            />
+            
+            <!-- Connecting line to timeline -->
+            <line 
+              x1={xPos} 
+              y1={yPos + (isTop ? DOT_RADIUS : -DOT_RADIUS)} 
+              x2={xPos} 
+              y2={TIMELINE_Y + (isTop ? -3 : 3)} 
+              stroke="#555" 
+              stroke-width="0.5" 
+              stroke-dasharray="2 2" 
+            />
+          </g>
+        {:else}
+          <!-- Person representation (lifespan bar) -->
+          {@const deathYear = item.died || new Date().getFullYear()}
+          {@const xStart = yearToX(yearValue)}
+          {@const xEnd = yearToX(deathYear)}
+          {@const barWidth = Math.max(xEnd - xStart, 5)} <!-- Ensure minimum visibility -->
           
-          <!-- Person lifespan bar -->
-          <rect 
-            x={xStart} 
-            y={yPos} 
-            width={barWidth} 
-            height={BAR_HEIGHT} 
-            class="person-bar"
-          />
+          <!-- Calculate Y position based on placement and row -->
+          {@const isTop = item.placement === 'top'}
+          {@const rowOffset = (item.row - 1) * (BAR_HEIGHT + BAR_GAP)}
+          {@const yPos = isTop 
+            ? TIMELINE_Y - BAR_OFFSET - rowOffset - BAR_HEIGHT
+            : TIMELINE_Y + BAR_OFFSET + rowOffset}
           
-          <!-- Connecting line to timeline -->
-          <line 
-            x1={xStart + barWidth/2} 
-            y1={yPos + (isTop ? BAR_HEIGHT : 0)} 
-            x2={xStart + barWidth/2} 
-            y2={TIMELINE_Y + (isTop ? -3 : 3)} 
-            stroke="#555" 
-            stroke-width="0.5" 
-            stroke-dasharray="2 2" 
-          />
-        </g>
+          <!-- Person bar group with pointer events -->
+          <g 
+            on:click={(e) => {
+              selectedPerson = item;
+              tooltipX = e.clientX;
+              tooltipY = e.clientY;
+              e.stopPropagation();
+            }}
+          >
+            <!-- Person name -->
+            <text 
+              x={xStart + barWidth/2} 
+              y={yPos + (isTop ? -NAME_OFFSET : BAR_HEIGHT + NAME_OFFSET)} 
+              text-anchor="middle" 
+              class="person-name"
+            >
+              {displayName}
+            </text>
+            
+            <!-- Person lifespan bar -->
+            <rect 
+              x={xStart} 
+              y={yPos} 
+              width={barWidth} 
+              height={BAR_HEIGHT} 
+              class="person-bar"
+            />
+            
+            <!-- Connecting line to timeline -->
+            <line 
+              x1={xStart + barWidth/2} 
+              y1={yPos + (isTop ? BAR_HEIGHT : 0)} 
+              x2={xStart + barWidth/2} 
+              y2={TIMELINE_Y + (isTop ? -3 : 3)} 
+              stroke="#555" 
+              stroke-width="0.5" 
+              stroke-dasharray="2 2" 
+            />
+          </g>
+        {/if}
       {/each}
     </svg>
   </div>
@@ -334,14 +419,19 @@
       class="image-popup" 
       style="left: {tooltipX}px; top: {tooltipY}px;"
     >
-      <img src={resolveBasePath(selectedPerson.image)} alt={selectedPerson.name} />
-      <h4>{selectedPerson.name}</h4>
+      <img src={resolveBasePath(selectedPerson.image)} alt={selectedPerson.name || selectedPerson.title} />
+      <h4>{selectedPerson.name || selectedPerson.title}</h4>
       <p>
-        {selectedPerson.born ? formatYear(selectedPerson.born) : ''} - 
-        {selectedPerson.died ? formatYear(selectedPerson.died) : 'present'}
-        ({selectedPerson.died 
-          ? Math.abs(selectedPerson.died - selectedPerson.born) 
-          : Math.abs(new Date().getFullYear() - selectedPerson.born)} years)
+        {#if selectedPerson.title}
+          {selectedPerson.author}<br/>
+          {formatYear(selectedPerson.published)}
+        {:else}
+          {selectedPerson.born ? formatYear(selectedPerson.born) : ''} - 
+          {selectedPerson.died ? formatYear(selectedPerson.died) : 'present'}
+          ({selectedPerson.died 
+            ? Math.abs(selectedPerson.died - selectedPerson.born) 
+            : Math.abs(new Date().getFullYear() - selectedPerson.born)} years)
+        {/if}
       </p>
       <button 
         style="position: absolute; top: 5px; right: 5px; background: none; border: none; color: white; cursor: pointer; font-size: 16px;"
