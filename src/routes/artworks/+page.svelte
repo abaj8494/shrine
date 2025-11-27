@@ -1,7 +1,7 @@
-<!-- src/routes/books/+page.svelte -->
+<!-- src/routes/artworks/+page.svelte -->
 <script lang="ts">
   import TimelineChart from '$lib/components/TimelineChart.svelte';
-  import books from '$lib/data/books.json';
+  import artworks from '$lib/data/artworks.json';
   import { base } from '$app/paths';
 
   export let data;
@@ -13,7 +13,7 @@
   <meta property="og:title" content={data.title} />
   <meta property="og:description" content={data.description} />
   <meta property="og:image" content={data.ogImage} />
-  <meta property="og:url" content="https://yourdomain.com/timeline/books" />
+  <meta property="og:url" content="https://yourdomain.com/timeline/artworks" />
   <meta name="twitter:title" content={data.title} />
   <meta name="twitter:description" content={data.description} />
   <meta name="twitter:image" content={data.ogImage} />
@@ -80,12 +80,12 @@
 </style>
 
 <div class="timeline-wrapper">
-  <TimelineChart items={books} />
+  <TimelineChart items={artworks} />
 </div>
 
 <div class="navigation-controls">
   <a href="{base}/people" class="navigation-icon" title="Go to People Timeline">👤</a>
-  <a href="{base}/artworks" class="navigation-icon" title="Go to Artworks Timeline">🎨</a>
+  <a href="{base}/books" class="navigation-icon" title="Go to Books Timeline">📚</a>
   <a href="{base}/list" class="navigation-icon" title="List View">📋</a>
   <a href="{base}/search" class="navigation-icon" title="Search Timeline">🔍</a>
 </div>

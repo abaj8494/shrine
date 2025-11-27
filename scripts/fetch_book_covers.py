@@ -24,7 +24,7 @@ from tqdm import tqdm
 # --------------------------------------------------------------------------- #
 # Config
 # --------------------------------------------------------------------------- #
-HEADERS = {"User-Agent": "ShrineTimelineBot/0.2 (https://github.com/<your-repo>)"}
+HEADERS = {"User-Agent": "TimelineBot/0.2 (https://github.com/timeline)"}
 
 OPENLIB_SEARCH = "https://openlibrary.org/search.json"
 OPENLIB_COVER  = "https://covers.openlibrary.org/b/id/{id}-L.jpg"   # L = ~600 px tall

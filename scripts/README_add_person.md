@@ -1,4 +1,4 @@
-# Adding New People to the Shrine Timeline
+# Adding New People to the Timeline
 
 ## Quick Start
 
@@ -24,7 +24,7 @@
 ## Example Usage
 
 ```
-=== Add New Person to Shrine Timeline ===
+=== Add New Person to Timeline ===
 
 Full name: Marie Curie
 Birth year (e.g., 1879, 470BC): 1867

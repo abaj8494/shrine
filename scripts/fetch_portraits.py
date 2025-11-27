@@ -27,7 +27,7 @@ WIKI_API    = "https://en.wikipedia.org/w/api.php"
 WIKIDATA_API = "https://www.wikidata.org/wiki/Special:EntityData/{}.json"
 COMMONS_FILE = "https://commons.wikimedia.org/wiki/Special:FilePath/{}"
 
-HEADERS = {"User-Agent": "ShrineTimelineBot/0.1 (https://github.com/shrine)"}
+HEADERS = {"User-Agent": "TimelineBot/0.1 (https://github.com/timeline)"}
 
 # --------------------------------------------------------------------------- #
 # Helper functions
