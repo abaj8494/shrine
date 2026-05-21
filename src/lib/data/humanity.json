@@ -429,6 +429,38 @@
         "region": "Europe"
     },
     {
+        "id": "romanticism",
+        "title": "Romantic Era",
+        "subtitle": "A reaction against Enlightenment rationalism—art, literature, and music turn to emotion, nature, the sublime, individual genius, and folk identity",
+        "kind": "range",
+        "start": 1770,
+        "end": 1850,
+        "approx": true,
+        "tags": [
+            "culture",
+            "art",
+            "literature",
+            "music",
+            "philosophy"
+        ],
+        "region": "Europe / Atlantic world"
+    },
+    {
+        "id": "victorian-era",
+        "title": "Victorian Era",
+        "subtitle": "Queen Victoria's reign—British imperial power peaks; industrial society, gas-lit cities, public morality, and the early shape of modern bureaucratic life take form",
+        "kind": "range",
+        "start": 1837,
+        "end": 1901,
+        "approx": false,
+        "tags": [
+            "politics",
+            "society",
+            "culture"
+        ],
+        "region": "Britain / Empire"
+    },
+    {
         "id": "industrialization",
         "title": "Industrialization and the rise of the modern state-market world",
         "subtitle": "Harari: ~200 years ago—factories, wage labor, and mass urban life expand; family/community are increasingly replaced by state and market; biodiversity decline accelerates",

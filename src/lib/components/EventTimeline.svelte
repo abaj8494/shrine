@@ -62,6 +62,16 @@
 	const HUMAN_PORTION = 0.3; // 30% for Human era to Historical
 	const HISTORICAL_PORTION = 0.35; // 35% for last 10,000 years
 
+	// 4-piece piecewise scale for historical (humanity) timeline
+	// Compresses prehistory so the modern tail (1800→present) reads clearly
+	const HIST_CLASSICAL_BOUNDARY = -500; // start of classical antiquity
+	const HIST_EARLY_MODERN_BOUNDARY = 1500; // Renaissance/early modern
+	const HIST_MODERN_BOUNDARY = 1800; // industrial / modern era
+	const HIST_PREHISTORY_PORTION = 0.3; // minTime → -500
+	const HIST_CLASSICAL_PORTION = 0.25; // -500 → 1500
+	const HIST_EARLY_MODERN_PORTION = 0.18; // 1500 → 1800
+	const HIST_MODERN_PORTION = 0.27; // 1800 → maxTime (the elongated tail)
+
 	// Asinh function for scaling deep time
 	function asinhScale(value: number, compressionFactor: number = 1e9): number {
 		return Math.asinh(value / compressionFactor);
@@ -110,9 +120,35 @@
 				return PADDING + ancientWidth + middleWidth + humanWidth + ratio * historicalWidth;
 			}
 		} else {
-			// Linear scale
-			const ratio = (time - minTime) / (maxTime - minTime);
-			return PADDING + ratio * usableWidth;
+			// Piecewise linear: compress prehistory, give the modern tail more room
+			const prehistoryWidth = usableWidth * HIST_PREHISTORY_PORTION;
+			const classicalWidth = usableWidth * HIST_CLASSICAL_PORTION;
+			const earlyModernWidth = usableWidth * HIST_EARLY_MODERN_PORTION;
+			const modernWidth = usableWidth * HIST_MODERN_PORTION;
+
+			if (time <= HIST_CLASSICAL_BOUNDARY) {
+				const ratio = (time - minTime) / (HIST_CLASSICAL_BOUNDARY - minTime);
+				return PADDING + ratio * prehistoryWidth;
+			} else if (time <= HIST_EARLY_MODERN_BOUNDARY) {
+				const ratio =
+					(time - HIST_CLASSICAL_BOUNDARY) /
+					(HIST_EARLY_MODERN_BOUNDARY - HIST_CLASSICAL_BOUNDARY);
+				return PADDING + prehistoryWidth + ratio * classicalWidth;
+			} else if (time <= HIST_MODERN_BOUNDARY) {
+				const ratio =
+					(time - HIST_EARLY_MODERN_BOUNDARY) /
+					(HIST_MODERN_BOUNDARY - HIST_EARLY_MODERN_BOUNDARY);
+				return PADDING + prehistoryWidth + classicalWidth + ratio * earlyModernWidth;
+			} else {
+				const ratio = (time - HIST_MODERN_BOUNDARY) / (maxTime - HIST_MODERN_BOUNDARY);
+				return (
+					PADDING +
+					prehistoryWidth +
+					classicalWidth +
+					earlyModernWidth +
+					ratio * modernWidth
+				);
+			}
 		}
 	}
 
@@ -165,17 +201,26 @@
 				}
 			}
 		} else {
-			// For linear scale, calculate appropriate intervals
-			let interval;
-			if (range > 10000) interval = 2000;
-			else if (range > 5000) interval = 1000;
-			else if (range > 1000) interval = 500;
-			else if (range > 500) interval = 100;
-			else interval = 50;
+			// Piecewise linear: hand-picked markers per era so the dense modern tail labels evenly
+			const prehistoryMarkers = [-10000, -8000, -6000, -4000, -2000, -1000];
+			for (const d of prehistoryMarkers) {
+				if (d >= minTime && d <= HIST_CLASSICAL_BOUNDARY) markerValues.push(d);
+			}
 
-			const startMarker = Math.ceil(minTime / interval) * interval;
-			for (let m = startMarker; m <= maxTime; m += interval) {
-				markerValues.push(m);
+			const classicalMarkers = [-500, 0, 500, 1000, 1500];
+			for (const d of classicalMarkers) {
+				if (d > HIST_CLASSICAL_BOUNDARY && d <= HIST_EARLY_MODERN_BOUNDARY) markerValues.push(d);
+				else if (d === HIST_CLASSICAL_BOUNDARY && d >= minTime) markerValues.push(d);
+			}
+
+			const earlyModernMarkers = [1600, 1700, 1800];
+			for (const d of earlyModernMarkers) {
+				if (d > HIST_EARLY_MODERN_BOUNDARY && d <= HIST_MODERN_BOUNDARY) markerValues.push(d);
+			}
+
+			const modernMarkers = [1850, 1900, 1925, 1950, 1975, 2000, 2025];
+			for (const d of modernMarkers) {
+				if (d > HIST_MODERN_BOUNDARY && d <= maxTime) markerValues.push(d);
 			}
 		}
 
